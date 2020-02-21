@@ -1,0 +1,10 @@
+Leer sobre weka _GUI Chooser_ U orange
+
+
+
+Tres notas en el curso: Dos talleres y un final
+
+
+Usted le debe dar una prueba estadistica a los datos arrojados de M.L.
+
+Begining R --Libro para leer
