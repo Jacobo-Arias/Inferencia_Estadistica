@@ -1,9 +1,8 @@
-
 fing <- read.csv("https://www.football-data.co.uk/mmz4281/1920/E0.csv") #Football Ingles
 head(fing)
 dim(fing)
 datos <- fing[,c(1:24)]
-
+datos
 
 levels(datos$HomeTeam)
 mean(datos$FTHG)
@@ -58,3 +57,4 @@ moda <- sort(valores,decreasing = TRUE)
 moda
 rownames(moda)[1]
 #modes(ars) matrix
+

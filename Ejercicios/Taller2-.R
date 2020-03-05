@@ -2,21 +2,30 @@ grd <- read.csv("https://www.datos.gov.co/api/views/ha9e-e48s/rows.csv?accessTyp
 
 prog <- grd$NOMBRE_PROGRAMA
 prom <- grd$PACUMULADO
-facultades <- grd$NOMBRE_FACULTAD
-
+library(dplyr)
 datos <- data.frame(facultades,prog,prom)
-subsetFac <- subset(datos,facultades == "INGENIERIA")
+subsetFac <- subset(datos,datos$facultades == "INGENIERIA")
 #subset1 <- datos[which(datos$facultades=='INGENIERIA'),]
-subsetFac2 <- subset(subsetFac,str_detect(prog,"ING"))
-subsetFac2
-rm(subsetFac2)
+#subsetFac2 <- subset(subsetFac,str_detect (prog,"ING"))
+#subsetFac
+#rm(subsetFac2)
 
+posg <- str_detect(subsetFac$prog,"MAES.*|DOCTORADO.*|ESPECIALIZACION|TEC")
+subsetFac <- cbind(subsetFac,posg) #agrega una nueva columna
+
+pregrado <- subset(subsetFac,subsetFac$posg == FALSE)
+head(pregrado)
+table(droplevels(pregrado$prog))
+pregrado2 <- pregrado[-4]
+pregrado2$prog
 #Tarea, hacer que datos solo tenga los datos de promedio de ingenierias de pregrado, 
 #frecuencia x ingeieria, Se necesita una tabla de contingencia
+pregrado2$rendimiento[pregrado2$prom < 3.5] <- "bajo"
+pregrado2$rendimiento[pregrado2$prom >= 3.5 & pregrado2$prom < 4.0] <- "medio"
+pregrado2$rendimiento[pregrado2$prom >= 4.0 & pregrado2$prom <= 4.5] <- "medio alto"
+pregrado2$rendimiento[pregrado2$prom > 4.5] <- "alto"
 
-prom <- prom/10
-prom
-
+table(pregrado2$rendimiento) # Cuenta cuantos hay en cada catergoria de rendimiento
 
 head(prom)
 head(prog)
